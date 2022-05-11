@@ -4,7 +4,6 @@ window.onload = ()=> {
 	canvas.height = window.innerHeight;
 	canvas.width = window.innerWidth;
 	ctx = canvas.getContext('2d');
-	ctx.font = '20px Arial';
 	fps = 60
 	setInterval(drawSquare, 1000/fps);
 }

@@ -21,6 +21,11 @@ function drawSquare() {
 	ctx.fillStyle = 'white';
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+	// Text
+	ctx.font = "90px Arial";
+	ctx.fillStyle = 'black';
+	ctx.fillText("wasd to move", canvas.width * 1/3, 90);
+
 	// Change square position
 	if (keysHeld['KeyW']) ypos -= speed;
 	if (keysHeld['KeyA']) xpos -= speed;
