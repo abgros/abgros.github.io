@@ -5,13 +5,38 @@ window.onload = ()=> {
 	canvas.width = window.innerWidth;
 	ctx = canvas.getContext('2d');
 	fps = 60
+	t = 0;
+	nextPipe = Math.round(Math.random() * 50 + 50);
 	setInterval(frame, 1000/fps);
-	obstacles = [new Obstacle(500, 500, 200, 200), new Obstacle(1100, 100, 50, 900)];
+	obstacles = new Obstacles(5);
+	square = new Square(500, 500, 20, 100);
 }
+
+// Handle keypresses
+keysHeld = {};
+window.addEventListener("keydown", function(event) {
+	keysHeld[event.code] = true;
+});
+
+window.addEventListener("keyup", function(event) {
+	keysHeld[event.code] = false;
+});
 
 // Things to do every frame
 function frame() {
-	drawSquare();
+	drawBackground()
+	obstacles.drawObstacles();
+	let speed = 0.01 * t + 10;
+	obstacles.moveObstacles(speed);
+	obstacles.deleteOffScreen;
+	square.moveSquare();
+	square.drawSquare();
+	if (nextPipe === 0) {
+		obstacles.addObstacle();
+		nextPipe = Math.round(Math.random() * 50 + 50);
+	}
+	nextPipe--;
+	t++;
 }
 
 // Bound number to a range

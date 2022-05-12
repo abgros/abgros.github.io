@@ -1,49 +1,31 @@
-// Handle keypresses
-keysHeld = {};
-window.addEventListener("keydown", function(event) {
-	keysHeld[event.code] = true;
-});
-
-window.addEventListener("keyup", function(event) {
-	keysHeld[event.code] = false;
-});
-
-// Initialize variables
-xpos = 0;
-ypos = 0;
-squareSize = 100;
-speed = 20;
-
-function drawSquare() {
-	// Draw background
-	ctx.fillStyle = 'white';
-	ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-	// Text
-	ctx.font = "90px Arial";
-	ctx.fillStyle = 'black';
-	ctx.fillText("wasd to move", canvas.width * 1/3, 90);
-
-	// Change square position
-	if (keysHeld['KeyW']) ypos -= speed;
-	if (keysHeld['KeyA']) xpos -= speed;
-	if (keysHeld['KeyS']) ypos += speed;
-	if (keysHeld['KeyD']) xpos += speed;
-
-	// Keep it within the edges
-	xpos = bound(xpos, 0, canvas.width - squareSize);
-	ypos = bound(ypos, 0, canvas.height - squareSize);
-
-	if (obstacles.some(element => element.collidingWithRectangle(xpos, ypos, squareSize, squareSize))) {
-		squareColor = "red";
-	} else {
-		squareColor = "black";
+class Square {
+	constructor(x, y, speed, squareSize) {
+		this.x = x;
+		this.y = y;
+		this.speed = speed;
+		this.squareSize = squareSize;
 	}
+	
+	drawSquare() {
+		if (this.isColliding(obstacles)) {
+			ctx.fillStyle = "red";
+		} else {
+			ctx.fillStyle = "black";
+		}
+		ctx.fillRect(this.x, this.y, this.squareSize, this.squareSize);
+	}
+	
+	isColliding(obstacles) {
+		return obstacles.obstaclesList.some(element => element.isColliding(square));
+	}
+	
+	moveSquare() {
+		if (keysHeld['KeyW']) this.y -= this.speed;
+		if (keysHeld['KeyA']) this.x -= this.speed;
+		if (keysHeld['KeyS']) this.y += this.speed;
+		if (keysHeld['KeyD']) this.x += this.speed;
 
-	// Draw Obstacles
-	obstacles.forEach(element => element.drawObstacle(ctx));
-
-	// Draw square
-	ctx.fillStyle = squareColor;
-	ctx.fillRect(xpos, ypos, squareSize, squareSize);
+		this.x = bound(this.x, 0, canvas.width - this.squareSize);
+		this.y = bound(this.y, 0, canvas.height - this.squareSize);
+	}
 }
