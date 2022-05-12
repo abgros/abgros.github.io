@@ -12,8 +12,6 @@ window.addEventListener("keyup", function(event) {
 xpos = 0;
 ypos = 0;
 squareSize = 100;
-squareColor = "black";
-squareColors = ["red", "orange", "green", "blue", "purple", "black"];
 speed = 20;
 
 function drawSquare() {
@@ -36,10 +34,14 @@ function drawSquare() {
 	xpos = bound(xpos, 0, canvas.width - squareSize);
 	ypos = bound(ypos, 0, canvas.height - squareSize);
 
-	// Occurs average of once per second
-	if (chance(1/fps)) {
-		squareColor = randomItem(squareColors);
+	if (obstacles.some(element => element.collidingWithRectangle(xpos, ypos, squareSize, squareSize))) {
+		squareColor = "red";
+	} else {
+		squareColor = "black";
 	}
+
+	// Draw Obstacles
+	obstacles.forEach(element => element.drawObstacle(ctx));
 
 	// Draw square
 	ctx.fillStyle = squareColor;
