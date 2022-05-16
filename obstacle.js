@@ -1,28 +1,28 @@
 class Obstacles {
-	constructor(n) {
+	constructor() {
 		this.obstaclesList = [];
 	}
-	
+
 	addObstacle(speedMultiplier) {
-		let height = Math.random() * 100 + 100;
-		let width = Math.random() * 100 + 100;
-		let y = Math.random() * canvas.height;
-		let xspeed = -Math.random() * 5 - 5;
-		let yspeed = Math.random() * 4 - 2;
-		
+		let height = randint(100, 200);
+		let width = randint(100, 200);
+		let y = randint(0, canvas.height);
+		let xspeed = randint(-10, -5);
+		let yspeed = randint(-2, 2);
+
 		this.obstaclesList.push(new Obstacle(canvas.width, y, width, height, xspeed * speedMultiplier, yspeed * speedMultiplier));
 	}
-	
+
 	drawObstacles() {
 		this.obstaclesList.forEach(element => element.drawObstacle());
 	}
-	
-	moveObstacles(distance) {
+
+	moveObstacles() {
 		this.obstaclesList.forEach(element => element.moveObstacle());
 	}
-	
+
 	deleteOffScreen() {
-		this.obstaclesList = this.obstaclesList.filter(element => element.x > 0);
+		this.obstaclesList = this.obstaclesList.filter(element => element.x + element.width > 0);
 	}
 }
 
@@ -34,7 +34,14 @@ class Obstacle {
 		this.height = height;
 		this.xspeed = xspeed;
 		this.yspeed = yspeed;
-		this.colour = randomObstacleColour();
+		this.colour = this.randomColour();
+	}
+
+	randomColour() {
+		var h = randint(0, 80);
+		var s = randint(10, 30);
+		var l = randint(10, 50);
+		return 'hsl(' + h + ',' + s + '%,' + l + '%)';
 	}
 
 	// https://stackoverflow.com/questions/306316/determine-if-two-rectangles-overlap-each-other/306332#306332
@@ -47,7 +54,7 @@ class Obstacle {
 		ctx.fillStyle = this.colour;
 		ctx.fillRect(this.x, this.y, this.width, this.height);
 	}
-	
+
 	moveObstacle() {
 		this.x += this.xspeed;
 		this.y += this.yspeed;

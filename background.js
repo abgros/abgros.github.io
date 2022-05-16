@@ -4,8 +4,8 @@ function drawBackground() {
 	ctx.font = "80px Arial";
 	ctx.fillStyle = 'black';
 	let time = roundTwoDP(t / fps);
-	ctx.fillText("wasd to move - " + lives + " lives - " + time, 50, 90);
+	ctx.fillText("wasd to move - " + Math.ceil(lives) + " lives - " + time + "s", 50, 90);
 	if (!playing) {
-		ctx.fillText("Game Over", 50, 190);
+		ctx.fillText("Game Over - Press R to Restart", 50, 190);
 	}
 }

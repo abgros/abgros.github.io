@@ -5,7 +5,7 @@ class Square {
 		this.speed = speed;
 		this.squareSize = squareSize;
 	}
-	
+
 	drawSquare() {
 		if (this.isColliding(obstacles)) {
 			ctx.fillStyle = "red";
@@ -14,16 +14,16 @@ class Square {
 		}
 		ctx.fillRect(this.x, this.y, this.squareSize, this.squareSize);
 	}
-	
+
 	isColliding(obstacles) {
 		return obstacles.obstaclesList.some(element => element.isColliding(square));
 	}
-	
+
 	moveSquare() {
-		if (keysHeld['KeyW']) this.y -= this.speed;
-		if (keysHeld['KeyA']) this.x -= this.speed;
-		if (keysHeld['KeyS']) this.y += this.speed;
-		if (keysHeld['KeyD']) this.x += this.speed;
+		if (keysHeld['KeyW'] || keysHeld['ArrowUp']) this.y -= this.speed;
+		if (keysHeld['KeyA'] || keysHeld['ArrowLeft']) this.x -= this.speed;
+		if (keysHeld['KeyS'] || keysHeld['ArrowDown']) this.y += this.speed;
+		if (keysHeld['KeyD'] || keysHeld['ArrowRight']) this.x += this.speed;
 
 		this.x = bound(this.x, 0, canvas.width - this.squareSize);
 		this.y = bound(this.y, 0, canvas.height - this.squareSize);
