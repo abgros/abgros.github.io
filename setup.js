@@ -9,7 +9,7 @@ window.onload = ()=> {
 	hits = 0;
 	setInterval(frame, 1000/fps);
 	obstacles = new Obstacles(5);
-	square = new Square(500, 500, 10, 100);
+	square = new Square(500, 500, 15, 50);
 }
 
 // Handle keypresses
@@ -33,8 +33,8 @@ function frame() {
 	if (square.isColliding(obstacles)) {
 		hits++;
 	}
-	let speedMultiplier = 1 + 0.0002 * t;
-	let spawnRate = 0.02 + 0.000005 * t;
+	let speedMultiplier = 1 + 0.0003 * t;
+	let spawnRate = 0.03 + 0.000007 * t;
 	if (chance(spawnRate)) {
 		obstacles.addObstacle(speedMultiplier);
 	}
