@@ -34,6 +34,7 @@ class Obstacle {
 		this.height = height;
 		this.xspeed = xspeed;
 		this.yspeed = yspeed;
+		this.colour = randomObstacleColour();
 	}
 
 	// https://stackoverflow.com/questions/306316/determine-if-two-rectangles-overlap-each-other/306332#306332
@@ -43,7 +44,7 @@ class Obstacle {
 	}
 
 	drawObstacle() {
-		ctx.fillStyle = "black";
+		ctx.fillStyle = this.colour;
 		ctx.fillRect(this.x, this.y, this.width, this.height);
 	}
 	

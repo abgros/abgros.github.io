@@ -10,7 +10,7 @@ class Square {
 		if (this.isColliding(obstacles)) {
 			ctx.fillStyle = "red";
 		} else {
-			ctx.fillStyle = "black";
+			ctx.fillStyle = "blue";
 		}
 		ctx.fillRect(this.x, this.y, this.squareSize, this.squareSize);
 	}

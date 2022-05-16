@@ -1,8 +1,11 @@
 function drawBackground() {
 	ctx.fillStyle = 'white';
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
-	ctx.font = "90px Arial";
+	ctx.font = "80px Arial";
 	ctx.fillStyle = 'black';
-	ctx.fillText("wasd to move", canvas.width * 1/3, 90);
-	ctx.fillText("Hits: " + hits, canvas.width * 1/3, 190);
+	let time = roundTwoDP(t / fps);
+	ctx.fillText("wasd to move - " + lives + " lives - " + time, 50, 90);
+	if (!playing) {
+		ctx.fillText("Game Over", 50, 190);
+	}
 }
