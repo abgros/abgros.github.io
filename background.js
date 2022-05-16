@@ -4,6 +4,5 @@ function drawBackground() {
 	ctx.font = "90px Arial";
 	ctx.fillStyle = 'black';
 	ctx.fillText("wasd to move", canvas.width * 1/3, 90);
-	ctx.font = "90px Wingdings";
-	ctx.fillText("djkfgnhkdjghdfjkghdfkghdfkjghfkdjghdfkjghkjdfhgjkfdhgfkdjghfjdkghk", canvas.width * 1/3, 190);
+	ctx.fillText("Hits: " + hits, canvas.width * 1/3, 190);
 }

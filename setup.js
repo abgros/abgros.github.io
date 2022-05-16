@@ -6,10 +6,10 @@ window.onload = ()=> {
 	ctx = canvas.getContext('2d');
 	fps = 60
 	t = 0;
-	nextPipe = Math.round(Math.random() * 50 + 50);
+	hits = 0;
 	setInterval(frame, 1000/fps);
 	obstacles = new Obstacles(5);
-	square = new Square(500, 500, 20, 100);
+	square = new Square(500, 500, 10, 100);
 }
 
 // Handle keypresses
@@ -26,16 +26,18 @@ window.addEventListener("keyup", function(event) {
 function frame() {
 	drawBackground()
 	obstacles.drawObstacles();
-	let speed = 0.01 * t + 10;
-	obstacles.moveObstacles(speed);
+	obstacles.moveObstacles();
 	obstacles.deleteOffScreen;
 	square.moveSquare();
 	square.drawSquare();
-	if (nextPipe === 0) {
-		obstacles.addObstacle();
-		nextPipe = Math.round(Math.random() * 50 + 50);
+	if (square.isColliding(obstacles)) {
+		hits++;
 	}
-	nextPipe--;
+	let speedMultiplier = 1 + 0.0002 * t;
+	let spawnRate = 0.02 + 0.000005 * t;
+	if (chance(spawnRate)) {
+		obstacles.addObstacle(speedMultiplier);
+	}
 	t++;
 }
 
