@@ -7,10 +7,10 @@ class Obstacles {
 		let height = randint(100, 200);
 		let width = randint(100, 200);
 		let y = randint(0, canvas.height);
-		let xspeed = randint(-10, -5);
-		let yspeed = randint(-2, 2);
+		let xspeed = randint(-10, -5) * speedMultiplier;
+		let yspeed = randint(-2, 2) * speedMultiplier;
 
-		this.obstaclesList.push(new Obstacle(canvas.width, y, width, height, xspeed * speedMultiplier, yspeed * speedMultiplier));
+		this.obstaclesList.push(new Obstacle(canvas.width, y, width, height, xspeed, yspeed));
 	}
 
 	drawObstacles() {

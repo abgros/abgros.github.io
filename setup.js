@@ -4,22 +4,15 @@ window.onload = () => {
 	canvas.height = window.innerHeight;
 	canvas.width = window.innerWidth;
 	ctx = canvas.getContext('2d');
-	fps = 240
-	global_speed = 60 / fps;
-	t = 0;
-	lives = 100;
-	playing = true;
-	setInterval(frame, 1000/fps);
-	obstacles = new Obstacles();
-	square = new Square(500, 500, 15 * global_speed, 50);
-	console.log(calcFPS());
+	initGame();
+	requestAnimationFrame(frame);
 }
 
 // Handle keypresses
 keysHeld = {};
 window.addEventListener("keydown", function(event) {
 	keysHeld[event.code] = true;
-	if (event.code == "KeyR") reset();
+	if (event.code == "KeyR") initGame();
 });
 
 window.addEventListener("keyup", function(event) {
@@ -31,30 +24,34 @@ function frame() {
 	drawBackground()
 	obstacles.drawObstacles();
 	obstacles.moveObstacles();
-	obstacles.deleteOffScreen();
 	square.moveSquare();
 	square.drawSquare();
 	if (playing) {
-		let speedMultiplier = (1 + 0.0003 * t * global_speed) * global_speed;
-		let spawnRate = (0.02 + 0.000012 * t * global_speed) * global_speed;
+		let speedMultiplier = (1 + 0.0003 * t);
+		let spawnRate = (0.02 + 0.000012 * t);
 		if (chance(spawnRate)) {
 			obstacles.addObstacle(speedMultiplier);
 		}
 		if (square.isColliding(obstacles)) {
-			lives -= 1 * global_speed;
+			lives--;
 		}
 		if (lives <= 0) {
 			playing = false;
 		}
 		t++;
 	}
+	if (t % 100 === 0) {
+		obstacles.deleteOffScreen();
+	}
+	requestAnimationFrame(frame);
 }
 
 // Reset game
-function reset() {
+function initGame() {
 	obstacles = new Obstacles();
 	square = new Square(500, 500, 15, 50);
 	t = 0;
+	start = new Date().getTime();
 	lives = 100;
 	playing = true;
 }
