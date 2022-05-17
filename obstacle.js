@@ -47,7 +47,7 @@ class Obstacle {
 	// https://stackoverflow.com/questions/306316/determine-if-two-rectangles-overlap-each-other/306332#306332
 	isColliding(square) {
 		return (this.x < square.x + square.squareSize && this.x + this.width > square.x &&
-			this.y < square.y + square.squareSize && this.y + this.height > square.y);
+				this.y < square.y + square.squareSize && this.y + this.height > square.y);
 	}
 
 	drawObstacle() {

@@ -32,7 +32,7 @@ function initGame() {
 
 // Things to do every frame
 function frame() {
-	drawBackground()
+	drawBackground();
 	obstacles.drawObstacles();
 	obstacles.moveObstacles();
 	square.moveSquare();
