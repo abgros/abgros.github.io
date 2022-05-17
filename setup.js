@@ -19,6 +19,17 @@ window.addEventListener("keyup", function(event) {
 	keysHeld[event.code] = false;
 });
 
+// Reset game
+function initGame() {
+	obstacles = new Obstacles();
+	square = new Square(500, 500, 15, 50);
+	t = 0;
+	start = new Date().getTime();
+	time = start;
+	lives = 100;
+	playing = true;
+}
+
 // Things to do every frame
 function frame() {
 	drawBackground()
@@ -39,21 +50,12 @@ function frame() {
 			playing = false;
 		}
 		t++;
+		time = (new Date().getTime() - start) / 1000;
 	}
 	if (t % 100 === 0) {
 		obstacles.deleteOffScreen();
 	}
 	requestAnimationFrame(frame);
-}
-
-// Reset game
-function initGame() {
-	obstacles = new Obstacles();
-	square = new Square(500, 500, 15, 50);
-	t = 0;
-	start = new Date().getTime();
-	lives = 100;
-	playing = true;
 }
 
 // Bound number to a range
