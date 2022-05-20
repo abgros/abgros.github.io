@@ -25,7 +25,7 @@ function initGame() {
 	square = new Square(500, 500, 15, 50);
 	t = 0;
 	start = new Date().getTime();
-	time = start;
+	time = 0;
 	lives = 100;
 	playing = true;
 }
